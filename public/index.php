@@ -43,4 +43,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $success = isset($_GET['success']);
-?
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Contact Us</title>
+</head>
+<body>
+  <h1>Contact Us</h1>
+
+  <?php if ($success): ?>
+    <p>Thank you! Your message has been sent.</p>
+    <p><a href="index.php">Send another message</a></p>
+  <?php else: ?>
+    <form method="post" action="index.php" novalidate>
+      <label>Name <input type="text" name="name" value="<?= e($name) ?>"></label>
+      <?php if (isset($errors['name'])): ?>
+        <span style="color: red;"><?= e($errors['name']) ?></span>
+      <?php endif; ?>
+      <br>
+
+      <label>Email <input type="email" name="email" value="<?= e($email) ?>"></label>
+      <?php if (isset($errors['email'])): ?>
+        <span style="color: red;"><?= e($errors['email']) ?></span>
+      <?php endif; ?>
+      <br>
+
+      <label>Message <textarea name="message"><?= e($message) ?></textarea></label>
+      <?php if (isset($errors['message'])): ?>
+        <span style="color: red;"><?= e($errors['message']) ?></span>
+      <?php endif; ?>
+      <br>
+
+      <button type="submit">Send</button>
+    </form>
+  <?php endif; ?>
+</body>
+</html>
